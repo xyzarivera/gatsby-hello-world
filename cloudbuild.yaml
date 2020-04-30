@@ -1,13 +1,9 @@
 steps:
-# Install
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['install']
-# # Test
-# - name: 'gcr.io/cloud-builders/npm'
-#   args: ['run', 'test:unit']
-# Build
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['run', 'build']
-# Deploy
-- name: 'gcr.io/$PROJECT_ID/gatsby-hello-world'
-  args: ['deploy']
+  - name: 'node:10'
+    entrypoint: 'npm'
+    args: ['install']
+  - name: 'node:10'
+    entrypoint: 'npm'
+    args: ['run','build']
+  - name: 'gcr.io/cicd-test-gatsby/firebase'
+    args: ['deploy','--only','hosting']
